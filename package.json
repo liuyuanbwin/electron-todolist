@@ -37,6 +37,7 @@
     "jest-environment-jsdom-fourteen": "1.0.1",
     "jest-resolve": "24.9.0",
     "jest-watch-typeahead": "0.4.2",
+    "koa-generator": "^1.1.17",
     "less": "^3.11.3",
     "less-loader": "^6.1.3",
     "mini-css-extract-plugin": "0.9.0",
@@ -68,7 +69,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "electron-start":"electron ./main.js"
+    "electron-start": "electron ./main.js"
   },
   "eslintConfig": {
     "extends": "react-app"

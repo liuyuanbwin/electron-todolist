@@ -15,6 +15,8 @@ function createWindow(){
     mainWindow.on('closed',function(){
         mainWindow = null
     })
+
+    mainWindow.setAlwaysOnTop(true)
 }
 
 app.on('ready', createWindow)
