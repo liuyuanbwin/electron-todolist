@@ -9,8 +9,9 @@ const {app, BrowserWindow} = require('electron')
 let mainWindow 
 
 function createWindow(){
-    mainWindow = new BrowserWindow({width:300, height:600,transparent:true,frame:false,resizable:false,maximizable:false})
+    mainWindow = new BrowserWindow({width:400, height:600,transparent:true,frame:false,resizable:false,maximizable:false})
     mainWindow.loadURL('http://localhost:3001/')
+    //mainWindow.setIgnoreMouseEvents(true)
     // mainWindow.webContents.openDevTools()
     mainWindow.on('closed',function(){
         mainWindow = null

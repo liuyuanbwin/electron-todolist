@@ -5,33 +5,87 @@
  * @Date: 2020-07-03 09:48:23
  */
 import React from 'react';
-import {Timeline} from 'antd';
+import {Timeline, Form, Input,Button} from 'antd';
 import {data} from '../../data'
 import TodoItemContent from '../../components/todo-item'
+import {getTodoList, addItem} from '../../api/todolist'
+import './index.less'
 
 class index extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {data:[]};
+  }
 
-    this.state = {};
+  componentDidMount() {
+    this.getList()
+  }
+
+  getList = () => {
+    getTodoList().then(res => {
+      //alert(res)
+      this.setState({data:res.data})
+    })
   }
 
   renderList = (list) => {
     return list.map(todoContent => {
 
-     return (<Timeline.Item color="red">
-            <TodoItemContent todoContent={todoContent} />
-  </Timeline.Item>)
-
+      return (
+        <Timeline.Item key={todoContent.id} color="red">
+          <TodoItemContent todoContent={todoContent}/>
+        </Timeline.Item>
+      )
 
     })
   }
 
   render() {
     return (
-      <Timeline mode="right">
-        {this.renderList(data)}
-      </Timeline>)
+      <div className="todo-list-and-input-container">
+         <Timeline mode="left" pending={
+           <Form className="todo-input-form"
+           name="customized_form_controls"
+           layout="inline"
+           onFinish={(e)=>{console.log(e);addItem(e).then(res => this.getList())}}
+           initialValues={{
+             price: {
+               number: 0,
+               currency: 'rmb',
+             },
+           }}
+           >
+            <Form.Item
+            // label="Username"
+             name="title"
+             rules={[{ required: true, message: 'Please input your username!' }]}
+           >
+             <Input />
+           </Form.Item>
+     
+           <Form.Item
+           //  label="Password"
+             name="content"
+             rules={[{ required: true, message: 'Please input your password!' }]}
+           >
+             <Input
+              />
+           </Form.Item>
+           <Form.Item>
+             <Button type="primary" htmlType="submit">
+               Submit
+             </Button>
+           </Form.Item>
+         </Form>
+         }>
+
+        {this.renderList(this.state.data)}
+      </Timeline>
+      
+
+     
+      </div>
+    )
   }
 }
 
