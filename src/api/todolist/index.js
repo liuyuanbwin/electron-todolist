@@ -11,3 +11,7 @@ export function getTodoList(){
 export function addItem(data){
     return post('/todolist/add',data)
 }
+
+export function updateItem(data){
+    return post('/todolist/update',data)
+}

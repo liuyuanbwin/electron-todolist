@@ -8,7 +8,7 @@ import React from 'react';
 import {Timeline, Form, Input,Button} from 'antd';
 import {data} from '../../data'
 import TodoItemContent from '../../components/todo-item'
-import {getTodoList, addItem} from '../../api/todolist'
+import {getTodoList, addItem, updateItem} from '../../api/todolist'
 import './index.less'
 
 class index extends React.Component {
@@ -23,7 +23,7 @@ class index extends React.Component {
 
   getList = () => {
     getTodoList().then(res => {
-      //alert(res)
+      alert(res)
       this.setState({data:res.data})
     })
   }
@@ -32,8 +32,14 @@ class index extends React.Component {
     return list.map(todoContent => {
 
       return (
-        <Timeline.Item key={todoContent.id} color="red">
-          <TodoItemContent todoContent={todoContent}/>
+        <Timeline.Item key={todoContent._id} color="red">
+          <TodoItemContent key={todoContent._id} update={(e,id) => {
+            let that = this
+            updateItem({id:todoContent._id,done:e,age:1111}).then(res =>{
+              console.log(`rrrrrrr `,res)
+              that.getList()
+            })
+          }} todoContent={todoContent}/>
         </Timeline.Item>
       )
 
@@ -81,9 +87,6 @@ class index extends React.Component {
 
         {this.renderList(this.state.data)}
       </Timeline>
-      
-
-     
       </div>
     )
   }
